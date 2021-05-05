@@ -1,3 +1,5 @@
+import { withRouter } from 'react-router-dom';
+
 const StoryList = () => {
 	return (
 		<div>
@@ -6,4 +8,4 @@ const StoryList = () => {
 	);
 };
 
-export default StoryList;
+export default withRouter(StoryList);

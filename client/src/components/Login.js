@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-const Login = () => {
+const Login = (props) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const data = e.target;
@@ -14,7 +16,15 @@ const Login = () => {
 
 		const token = response.data.token;
 
-		console.log(token);
+		redirectToPage(data.role.value);
+	};
+
+	const redirectToPage = (role) => {
+		if (role === 'user') {
+			props.history.push('/create-story');
+		} else {
+			props.history.push('/story-review');
+		}
 	};
 
 	return (
@@ -45,4 +55,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default withRouter(Login);

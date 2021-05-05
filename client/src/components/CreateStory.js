@@ -1,3 +1,5 @@
+import { withRouter } from 'react-router-dom';
+
 const CreateStory = () => {
 	return (
 		<div>
@@ -6,4 +8,4 @@ const CreateStory = () => {
 	);
 };
 
-export default CreateStory;
+export default withRouter(CreateStory);
