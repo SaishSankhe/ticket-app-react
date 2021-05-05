@@ -1,8 +1,11 @@
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../AuthContext';
 
 const Login = (props) => {
+	const [details, setDetails] = useContext(AuthContext);
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const data = e.target;
@@ -14,7 +17,10 @@ const Login = (props) => {
 
 		const response = await axios.post('/api/v1/signin', loginObj);
 
-		const token = response.data.token;
+		setDetails({
+			token: response.data.token,
+			role: response.data.role.toLowerCase(),
+		});
 
 		redirectToPage(data.role.value);
 	};

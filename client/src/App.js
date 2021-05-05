@@ -3,6 +3,8 @@ import Login from './components/Login';
 import CreateStory from './components/CreateStory';
 import StoryList from './components/StoryList';
 import StoryReview from './components/StoryReview';
+import { AuthProvider } from './AuthContext';
+import { AuthContext } from './AuthContext';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 function App() {
@@ -24,13 +26,15 @@ function App() {
 				Each story
 			</Link>
 
-			<Switch>
-				<Route exact path="/login" component={Login} />
-				<Route exact path="/create-story" component={CreateStory} />
-				<Route exact path="/story-list" component={StoryList} />
-				<Route exact path="/story-review" component={StoryReview} />
-				<Route exact path="/story-review/:id" component={StoryReview} />
-			</Switch>
+			<AuthProvider>
+				<Switch>
+					<Route exact path="/login" component={Login} />
+					<Route exact path="/create-story" component={CreateStory} />
+					<Route exact path="/story-list" component={StoryList} />
+					<Route exact path="/story-review" component={StoryReview} />
+					<Route exact path="/story-review/:id" component={StoryReview} />
+				</Switch>
+			</AuthProvider>
 		</Router>
 	);
 }
