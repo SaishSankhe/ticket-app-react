@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const StoryList = () => {
 	const [details] = useContext(AuthContext);
-	const [stories, setStories] = useState({});
+	const [stories, setStories] = useState([]);
 
 	useEffect(() => {
 		async function getStories() {
@@ -15,16 +15,27 @@ const StoryList = () => {
 				},
 			});
 
-			setStories(getStories);
+			setStories(getStories.data);
 		}
 		getStories();
-	}, []);
+	}, [details]);
 
 	console.log(stories);
 
 	return (
 		<div>
-			<p>Story list page</p>
+			{stories.map((item, index) => (
+				<div index={index}>
+					<p>{item.id}</p>
+					<p>{item.summary}</p>
+					<p>{item.description}</p>
+					<p>{item.type}</p>
+					<p>{item.complexity}</p>
+					<p>{item.estimatedHrs}</p>
+					<p>{item.cost}</p>
+					<hr />
+				</div>
+			))}
 		</div>
 	);
 };

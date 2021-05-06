@@ -39,8 +39,8 @@ const CreateStory = (props) => {
 				</label>
 				<label>
 					Type:
-					<select name="type" id="type" required>
-						<option disabled value="none" selected="selected">
+					<select name="type" id="type" required defaultValue="value">
+						<option disabled value="value">
 							Select story type
 						</option>
 						<option value="enhanced">Enhanced</option>
@@ -51,8 +51,13 @@ const CreateStory = (props) => {
 				</label>
 				<label>
 					Complexity:
-					<select name="complexity" id="complexity" required>
-						<option disabled selected="selected" value="none">
+					<select
+						name="complexity"
+						id="complexity"
+						required
+						defaultValue="value"
+					>
+						<option disabled value="value">
 							Select complexity
 						</option>
 						<option value="low">Low</option>
