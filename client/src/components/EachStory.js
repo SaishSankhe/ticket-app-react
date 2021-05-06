@@ -4,6 +4,10 @@ import { AuthContext } from '../AuthContext';
 import Navigation from './Navigation';
 import axios from 'axios';
 
+/**
+ * This component is to display information regarding single story when admin clicks on it
+ * Admin can Accept or Reject the story on this page
+ */
 const EachStory = (props) => {
 	const [details] = useContext(AuthContext);
 	const storyId = props.match.params.id;
@@ -11,6 +15,9 @@ const EachStory = (props) => {
 
 	useEffect(() => {
 		async function fetchStory() {
+			/**
+			 * get story details from the backend based on the story id passed
+			 */
 			const getStory = await axios.get(`/api/v1/stories/${storyId}`, {
 				headers: {
 					Authorization: `Bearer ${details.token}`,
@@ -24,6 +31,9 @@ const EachStory = (props) => {
 	}, []);
 
 	const updateStatus = async (status) => {
+		/**
+		 * Update the status of the story by passing the status to backend
+		 */
 		await axios.put(
 			`/api/v1/stories/${storyId}/${status}`,
 			{},

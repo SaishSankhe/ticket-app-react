@@ -4,6 +4,10 @@ import { AuthContext } from '../AuthContext';
 import Navigation from './Navigation';
 import axios from 'axios';
 
+/**
+ * This component is for admin to review the stories
+ * Admin can click on each story to accept/reject ot
+ */
 const StoryList = (props) => {
 	const [details] = useContext(AuthContext);
 	const [stories, setStories] = useState([]);

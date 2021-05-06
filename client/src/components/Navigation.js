@@ -3,6 +3,10 @@ import { useContext } from 'react';
 import { AuthContext } from '../AuthContext';
 import { Link } from 'react-router-dom';
 
+/**
+ * This component acts as a navigational component
+ * This is for testing purposes, will not be seen in final builds
+ */
 const Navigation = (props) => {
 	const [details, setDetails] = useContext(AuthContext);
 

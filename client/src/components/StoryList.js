@@ -4,6 +4,11 @@ import { AuthContext } from '../AuthContext';
 import axios from 'axios';
 import Navigation from './Navigation';
 
+/**
+ * This  component displays the story list by the logged in user
+ * User can sort the stories by id and complexity
+ * Stories can be filtered based on type
+ */
 const StoryList = () => {
 	const [details] = useContext(AuthContext);
 	const [stories, setStories] = useState([]);
@@ -31,6 +36,9 @@ const StoryList = () => {
 	};
 
 	const sortByComplexity = () => {
+		/**
+		 * sort the stories by complexity, high > mid > low
+		 */
 		const type = ['high', 'mid', 'low'];
 		const sortedStories = [].concat(stories).sort((a, b) => {
 			return type.indexOf(a.complexity) - type.indexOf(b.complexity);
@@ -40,13 +48,22 @@ const StoryList = () => {
 	};
 
 	const filterByType = (e) => {
+		/**
+		 * set the filter value, to be used to filter the results
+		 */
 		setFilter(e.target.value);
 	};
 
 	const filteredStories = () => {
+		/**
+		 * filter the stories by selected filter
+		 */
 		const filteredStories = stories.filter((item) => item.type === filter);
 
 		return (
+			/**
+			 * returns new filtered list
+			 */
 			<div>
 				{filteredStories.map((item, index) => (
 					<div key={index}>
@@ -100,20 +117,28 @@ const StoryList = () => {
 					</select>
 				</label>
 			</form>
-			{filter === 'none'
-				? stories.map((item, index) => (
-						<div key={index}>
-							<p>{item.id}</p>
-							<p>{item.summary}</p>
-							<p>{item.description}</p>
-							<p>{item.type}</p>
-							<p>{item.complexity}</p>
-							<p>{item.estimatedHrs}</p>
-							<p>{item.cost}</p>
-							<hr />
-						</div>
-				  ))
-				: filteredStories()}
+			{
+				/**
+				 * checks if any filter is selected
+				 * If yes, displays the stories according to filter,
+				 * If not, displays all the stories
+				 *  */
+
+				filter === 'none'
+					? stories.map((item, index) => (
+							<div key={index}>
+								<p>{item.id}</p>
+								<p>{item.summary}</p>
+								<p>{item.description}</p>
+								<p>{item.type}</p>
+								<p>{item.complexity}</p>
+								<p>{item.estimatedHrs}</p>
+								<p>{item.cost}</p>
+								<hr />
+							</div>
+					  ))
+					: filteredStories()
+			}
 		</div>
 	);
 };

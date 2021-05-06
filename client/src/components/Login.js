@@ -4,22 +4,19 @@ import { withRouter } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../AuthContext';
 
+/**
+ * This component is for logging in the user or admin
+ * While signing in, details are sent to backend and a token is received
+ * This token is saved to details using context API and used all over the application
+ */
 const Login = (props) => {
 	const [details, setDetails] = useContext(AuthContext);
 
-	const checkLoggedIn = () => {
-		if (details) {
-			if (details.role === 'user') {
-				props.history.push('/create-story');
-			} else {
-				props.history.push('/story-review');
-			}
-		}
-	};
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
 		const data = e.target;
+
 		const loginObj = {
 			email: data.email.value,
 			password: data.pass.value,
@@ -28,6 +25,9 @@ const Login = (props) => {
 
 		const response = await axios.post('/api/v1/signin', loginObj);
 
+		/**
+		 * set the details object to set the token and role
+		 */
 		setDetails({
 			token: response.data.token,
 			role: response.data.role.toLowerCase(),
@@ -37,6 +37,10 @@ const Login = (props) => {
 	};
 
 	const redirectToPage = (role) => {
+		/**
+		 * function to check if the logged in person is user or admin
+		 * to redirect to respective routes
+		 */
 		if (role === 'user') {
 			props.history.push('/create-story');
 		} else {
