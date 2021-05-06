@@ -23,3 +23,10 @@ button {
 	padding: 10px;
 	margin: 5px;
 }
+
+.currencyinput {
+	border: 1px inset #ccc;
+}
+.currencyinput input {
+	border: 0;
+}
