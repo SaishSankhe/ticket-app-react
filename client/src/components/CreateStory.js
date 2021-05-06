@@ -17,7 +17,7 @@ const CreateStory = (props) => {
 			type: data.type.value,
 			complexity: data.complexity.value,
 		};
-		console.log(details.token);
+		console.log(storyObj);
 		await axios.post('/api/v1/stories', storyObj, {
 			headers: {
 				Authorization: `Bearer ${details.token}`,
@@ -44,7 +44,7 @@ const CreateStory = (props) => {
 						<option disabled value="value">
 							Select story type
 						</option>
-						<option value="enhanced">Enhanced</option>
+						<option value="enhancement">Enhancement</option>
 						<option value="bugfix">Bugfix</option>
 						<option value="development">Development</option>
 						<option value="qa">QA</option>

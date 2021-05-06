@@ -4,6 +4,7 @@ import Login from './components/Login';
 import CreateStory from './components/CreateStory';
 import StoryList from './components/StoryList';
 import StoryReview from './components/StoryReview';
+import EachStory from './components/EachStory';
 import AdminRoute from './components/AdminRoute';
 import AuthRoute from './components/AuthRoute';
 import { AuthProvider } from './AuthContext';
@@ -19,7 +20,7 @@ function App() {
 					<AuthRoute exact path="/create-story" component={CreateStory} />
 					<AuthRoute exact path="/story-list" component={StoryList} />
 					<AdminRoute exact path="/story-review" component={StoryReview} />
-					<AdminRoute exact path="/story-review/:id" component={StoryReview} />
+					<AdminRoute exact path="/story-review/:id" component={EachStory} />
 				</Switch>
 			</AuthProvider>
 		</Router>

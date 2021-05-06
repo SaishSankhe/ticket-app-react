@@ -21,8 +21,6 @@ const StoryList = () => {
 		getStories();
 	}, [details]);
 
-	console.log(stories);
-
 	return (
 		<div>
 			<Navigation />
