@@ -21,7 +21,10 @@ I have used Context API instead of Redux to store the authenticated user details
 
 I have added a *logout* functionality to the application so that user/admin can logout. This clears the information stored in Context API and also the local storage. If not logged out, the local storage has the details stored and will always remember the past login.
 
-  
+## Possible changes
+
+If time permitted, I would have tested for all accessibility practices and solved the issues. Also, I would have added unit tests to the frontend code.
+
 ## Run Locally
 
 Clone the project
