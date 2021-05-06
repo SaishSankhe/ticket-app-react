@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Navigation from './Navigation';
 import { withRouter } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../AuthContext';
@@ -6,15 +7,15 @@ import { AuthContext } from '../AuthContext';
 const Login = (props) => {
 	const [details, setDetails] = useContext(AuthContext);
 
-	// const checkLoggedIn = () => {
-	// 	if (details) {
-	// 		if (details.role === 'user') {
-	// 			props.history.push('/create-story');
-	// 		} else {
-	// 			props.history.push('/story-review');
-	// 		}
-	// 	}
-	// };
+	const checkLoggedIn = () => {
+		if (details) {
+			if (details.role === 'user') {
+				props.history.push('/create-story');
+			} else {
+				props.history.push('/story-review');
+			}
+		}
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -45,6 +46,7 @@ const Login = (props) => {
 
 	return (
 		<div>
+			<Navigation />
 			<form className="myForm" method="POST" onSubmit={handleSubmit}>
 				<label>
 					Email

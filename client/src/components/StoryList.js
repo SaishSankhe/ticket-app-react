@@ -2,6 +2,7 @@ import { withRouter } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../AuthContext';
 import axios from 'axios';
+import Navigation from './Navigation';
 
 const StoryList = () => {
 	const [details] = useContext(AuthContext);
@@ -24,8 +25,9 @@ const StoryList = () => {
 
 	return (
 		<div>
+			<Navigation />
 			{stories.map((item, index) => (
-				<div index={index}>
+				<div key={index}>
 					<p>{item.id}</p>
 					<p>{item.summary}</p>
 					<p>{item.description}</p>

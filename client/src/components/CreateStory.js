@@ -2,6 +2,7 @@ import { withRouter } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../AuthContext';
 import axios from 'axios';
+import Navigation from './Navigation';
 
 const CreateStory = (props) => {
 	const [details] = useContext(AuthContext);
@@ -80,7 +81,12 @@ const CreateStory = (props) => {
 		);
 	};
 
-	return <div>{addStoryForm()}</div>;
+	return (
+		<div>
+			<Navigation />
+			{addStoryForm()}
+		</div>
+	);
 };
 
 export default withRouter(CreateStory);
