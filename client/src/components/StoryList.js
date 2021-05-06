@@ -2,7 +2,7 @@ import { withRouter } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../AuthContext';
 import axios from 'axios';
-import Navigation from './Navigation';
+import Logout from './Logout';
 import { Card, Button, Select, Form, Row, Col } from 'antd';
 
 /**
@@ -87,7 +87,7 @@ const StoryList = () => {
 
 	return (
 		<div>
-			<Navigation />
+			<Logout />
 			<div className="list-actions">
 				<Button
 					type="button"

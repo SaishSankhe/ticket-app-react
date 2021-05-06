@@ -2,7 +2,7 @@ import { withRouter } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../AuthContext';
 import axios from 'axios';
-import Navigation from './Navigation';
+import Logout from './Logout';
 import { Form, Input, Button, Select, InputNumber } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 
@@ -142,10 +142,10 @@ const CreateStory = (props) => {
 	};
 
 	return (
-		<div>
-			<Navigation />
-			{addStoryForm()}
-		</div>
+		<>
+			<Logout />
+			<div>{addStoryForm()}</div>;
+		</>
 	);
 };
 

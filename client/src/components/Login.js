@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Navigation from './Navigation';
 import { withRouter } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../AuthContext';
@@ -56,7 +55,6 @@ const Login = (props) => {
 
 	return (
 		<div>
-			<Navigation />
 			<Form
 				{...layout}
 				layout="vertical"
@@ -84,7 +82,11 @@ const Login = (props) => {
 				>
 					<Input.Password />
 				</Form.Item>
-				<Form.Item name="role" label="Role">
+				<Form.Item
+					name="role"
+					label="Role"
+					rules={[{ required: true, message: 'Please choose a role' }]}
+				>
 					<Radio.Group>
 						<Radio value="user">User</Radio>
 						<Radio value="admin">Admin</Radio>

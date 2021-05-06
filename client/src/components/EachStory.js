@@ -1,8 +1,10 @@
 import { withRouter } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../AuthContext';
-import Navigation from './Navigation';
+import Logout from './Logout';
 import axios from 'axios';
+import { Card } from 'antd';
+import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 /**
  * This component is to display information regarding single story when admin clicks on it
@@ -49,33 +51,39 @@ const EachStory = (props) => {
 
 	return (
 		<div>
-			<Navigation />
+			<Logout />
 			<div>
-				<p>{story.id}</p>
-				<p>{story.summary}</p>
-				<p>{story.description}</p>
-				<p>{story.type}</p>
-				<p>{story.complexity}</p>
-				<p>{story.estimatedHrs}</p>
-				<p>{story.cost}</p>
-				<hr />
-
-				<button
-					type="button"
-					onClick={() => {
-						updateStatus('accepted');
-					}}
-				>
-					Accept
-				</button>
-				<button
-					type="button"
-					onClick={() => {
-						updateStatus('rejected');
-					}}
-				>
-					Reject
-				</button>
+				<div className="site-card-border-less-wrapper">
+					<Card
+						title={story.id + ' ' + story.summary}
+						bordered={false}
+						actions={[
+							<span
+								onClick={() => {
+									updateStatus('accepted');
+								}}
+							>
+								{`Accept `}
+								<CheckOutlined key="edit" />
+							</span>,
+							<span
+								onClick={() => {
+									updateStatus('rejected');
+								}}
+							>
+								{`Reject `}
+								<CloseOutlined key="edit" />
+							</span>,
+						]}
+					>
+						<p>{story.description}</p>
+						<p>Type: {story.type}</p>
+						<p>Complexity: {story.complexity}</p>
+						<p>Estimated hours: {story.estimatedHrs}</p>
+						<p>Cost: {story.cost}</p>
+						<p>Status: {story.status}</p>
+					</Card>
+				</div>
 			</div>
 		</div>
 	);

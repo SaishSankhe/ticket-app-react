@@ -1,6 +1,7 @@
 import { withRouter } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../AuthContext';
+import { Button } from 'antd';
 
 /**
  * This component acts as a button to logout
@@ -11,13 +12,14 @@ const Logout = (props) => {
 	const logout = () => {
 		setDetails({});
 		localStorage.removeItem('details');
+		props.history.push('/login');
 	};
 
 	return (
-		<div>
-			<a href="/login" className="showlink" onClick={logout}>
+		<div className="logout-btn">
+			<Button onClick={logout} width={80}>
 				Logout
-			</a>
+			</Button>
 		</div>
 	);
 };
