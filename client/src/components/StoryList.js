@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../AuthContext';
 import axios from 'axios';
 import Navigation from './Navigation';
+import { Card, Button, Select, Form, Row, Col } from 'antd';
 
 /**
  * This  component displays the story list by the logged in user
@@ -13,6 +14,8 @@ const StoryList = () => {
 	const [details] = useContext(AuthContext);
 	const [stories, setStories] = useState([]);
 	const [filter, setFilter] = useState('none');
+
+	const { Option } = Select;
 
 	useEffect(() => {
 		async function getStories() {
@@ -47,11 +50,11 @@ const StoryList = () => {
 		setStories(sortedStories);
 	};
 
-	const filterByType = (e) => {
+	const filterByType = (value) => {
 		/**
 		 * set the filter value, to be used to filter the results
 		 */
-		setFilter(e.target.value);
+		setFilter(value);
 	};
 
 	const filteredStories = () => {
@@ -64,81 +67,85 @@ const StoryList = () => {
 			/**
 			 * returns new filtered list
 			 */
-			<div>
+			<>
 				{filteredStories.map((item, index) => (
-					<div key={index}>
-						<p>{item.id}</p>
-						<p>{item.summary}</p>
-						<p>{item.description}</p>
-						<p>{item.type}</p>
-						<p>{item.complexity}</p>
-						<p>{item.estimatedHrs}</p>
-						<p>{item.cost}</p>
-						<hr />
-					</div>
+					<Col className="gutter-row" sm={24} md={12} key={index}>
+						<div className="site-card-border-less-wrapper">
+							<Card title={item.id + ' ' + item.summary} bordered={false}>
+								<p>{item.description}</p>
+								<p>Type: {item.type}</p>
+								<p>Complexity: {item.complexity}</p>
+								<p>Estimated hours: {item.estimatedHrs}</p>
+								<p>Cost: {item.cost}</p>
+							</Card>
+						</div>
+					</Col>
 				))}
-			</div>
+			</>
 		);
 	};
 
 	return (
 		<div>
 			<Navigation />
-			<button
-				type="button"
-				onClick={() => {
-					sortById();
-				}}
-			>
-				Sort by ID
-			</button>
-			<button
-				type="button"
-				onClick={() => {
-					sortByComplexity();
-				}}
-			>
-				Sort by Type
-			</button>
-			<form>
-				<label>
-					Filter by type
-					<select
-						name="type"
-						id="filterValue"
-						defaultValue="none"
-						onChange={filterByType}
-					>
-						<option value="none">None</option>
-						<option value="enhancement">Enhancement</option>
-						<option value="bugfix">Bugfix</option>
-						<option value="development">Development</option>
-						<option value="qa">QA</option>
-					</select>
-				</label>
-			</form>
-			{
-				/**
-				 * checks if any filter is selected
-				 * If yes, displays the stories according to filter,
-				 * If not, displays all the stories
-				 *  */
+			<div className="list-actions">
+				<Button
+					type="button"
+					onClick={() => {
+						sortById();
+					}}
+				>
+					Sort by ID
+				</Button>
+				<Button
+					type="button"
+					onClick={() => {
+						sortByComplexity();
+					}}
+				>
+					Sort by Type
+				</Button>
+			</div>
+			<Form.Item label="Filter" name="type">
+				<Select
+					placeholder="Filter by"
+					onChange={filterByType}
+					defaultValue="none"
+					className="filter"
+				>
+					<Option value="none">None</Option>
+					<Option value="enhancement">Enhancement</Option>
+					<Option value="bugfix">Bugfix</Option>
+					<Option value="development">Development</Option>
+					<Option value="qa">QA</Option>
+				</Select>
+			</Form.Item>
 
-				filter === 'none'
-					? stories.map((item, index) => (
-							<div key={index}>
-								<p>{item.id}</p>
-								<p>{item.summary}</p>
-								<p>{item.description}</p>
-								<p>{item.type}</p>
-								<p>{item.complexity}</p>
-								<p>{item.estimatedHrs}</p>
-								<p>{item.cost}</p>
-								<hr />
-							</div>
-					  ))
-					: filteredStories()
-			}
+			<Row gutter={[40, 30]}>
+				{
+					/**
+					 * checks if any filter is selected
+					 * If yes, displays the stories according to filter,
+					 * If not, displays all the stories
+					 *  */
+
+					filter === 'none'
+						? stories.map((item, index) => (
+								<Col className="gutter-row" sm={24} md={12} key={index}>
+									<div className="site-card-border-less-wrapper">
+										<Card title={item.id + ' ' + item.summary} bordered={false}>
+											<p>{item.description}</p>
+											<p>Type: {item.type}</p>
+											<p>Complexity: {item.complexity}</p>
+											<p>Estimated hours: {item.estimatedHrs}</p>
+											<p>Cost: {item.cost}</p>
+										</Card>
+									</div>
+								</Col>
+						  ))
+						: filteredStories()
+				}
+			</Row>
 		</div>
 	);
 };

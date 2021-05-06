@@ -25,9 +25,12 @@
 	color: #fcfcfc;
 }
 
-.currencyinput {
-	border: 1px inset #ccc;
+.list-actions {
+	display: flex;
+	gap: 10px;
+	margin: 10px 0;
 }
-.currencyinput input {
-	border: 0;
+
+.filter {
+	width: 150px !important;
 }

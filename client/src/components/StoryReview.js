@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../AuthContext';
 import Navigation from './Navigation';
 import axios from 'axios';
-import { Card } from 'antd';
+import { Card, Row, Col } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 
 /**
@@ -34,30 +34,33 @@ const StoryList = (props) => {
 	return (
 		<div>
 			<Navigation />
-			{stories.map((item, index) => (
-				<div className="site-card-border-less-wrapper" key={index}>
-					<Card
-						title={item.id + ' ' + item.summary}
-						bordered={false}
-						style={{ width: 400 }}
-						actions={[
-							<EditOutlined
-								key="edit"
-								onClick={() => {
-									viewStory(item.id);
-								}}
-							/>,
-						]}
-						className={item.status}
-					>
-						<p>{item.description}</p>
-						<p>Type: {item.type}</p>
-						<p>Complexity: {item.complexity}</p>
-						<p>Estimated hours: {item.estimatedHrs}</p>
-						<p>Cost: {item.cost}</p>
-					</Card>
-				</div>
-			))}
+			<Row gutter={[40, 30]}>
+				{stories.map((item, index) => (
+					<Col className="gutter-row" sm={24} md={12} key={index}>
+						<div className="site-card-border-less-wrapper">
+							<Card
+								title={item.id + ' ' + item.summary}
+								bordered={false}
+								actions={[
+									<EditOutlined
+										key="edit"
+										onClick={() => {
+											viewStory(item.id);
+										}}
+									/>,
+								]}
+								className={item.status}
+							>
+								<p>{item.description}</p>
+								<p>Type: {item.type}</p>
+								<p>Complexity: {item.complexity}</p>
+								<p>Estimated hours: {item.estimatedHrs}</p>
+								<p>Cost: {item.cost}</p>
+							</Card>
+						</div>
+					</Col>
+				))}
+			</Row>
 		</div>
 	);
 };

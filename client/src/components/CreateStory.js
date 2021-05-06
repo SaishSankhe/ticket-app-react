@@ -84,6 +84,7 @@ const CreateStory = (props) => {
 					label="Type"
 					name="type"
 					rules={[{ required: true, message: 'Please select story type' }]}
+					width="200px"
 				>
 					<Select placeholder="Please select story type">
 						<Option value="enhancement">Enhancement</Option>
