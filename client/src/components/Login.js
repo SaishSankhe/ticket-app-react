@@ -23,11 +23,6 @@ const Login = (props) => {
 	};
 
 	const handleSubmit = async (values) => {
-		// e.preventDefault();
-
-		const data = values;
-		console.log(values);
-
 		const loginObj = {
 			email: values.email,
 			password: values.pass,
@@ -72,7 +67,13 @@ const Login = (props) => {
 				<Form.Item
 					label="Email"
 					name="email"
-					rules={[{ required: true, message: 'Please input your email' }]}
+					rules={[
+						{
+							required: true,
+							type: 'email',
+							message: 'Please input your email',
+						},
+					]}
 				>
 					<Input />
 				</Form.Item>

@@ -3,6 +3,8 @@ import { useContext } from 'react';
 import { AuthContext } from '../AuthContext';
 import axios from 'axios';
 import Navigation from './Navigation';
+import { Form, Input, Button, Select, InputNumber } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
 
 /**
  * This component is for logged in user to add a new user story/ticket
@@ -11,23 +13,31 @@ import Navigation from './Navigation';
 const CreateStory = (props) => {
 	const [details] = useContext(AuthContext);
 
-	const handleSubmit = async (e) => {
+	const { Option } = Select;
+
+	const layout = {
+		labelCol: { span: 5 },
+		wrapperCol: { span: 10 },
+	};
+
+	const tailLayout = {
+		wrapperCol: { offset: 5, span: 10 },
+	};
+
+	const handleSubmit = async (values) => {
 		/** After submitting the user story form
 		 *	new story object is created using the details from form
 		 *	object is sent to backend to add to the stories database
 		 *	After successful post request, the user is redirected to /story-list
 		 */
 
-		e.preventDefault();
-		const data = e.target;
-
 		const storyObj = {
-			summary: data.summary.value,
-			description: data.description.value,
-			type: data.type.value,
-			complexity: data.complexity.value,
-			estimatedHrs: data.estimated.value,
-			cost: data.cost.value,
+			summary: values.summary,
+			description: values.description,
+			type: values.type,
+			complexity: values.complexity,
+			estimatedHrs: values.estimated,
+			cost: values.cost,
 		};
 
 		await axios.post('/api/v1/stories', storyObj, {
@@ -45,55 +55,88 @@ const CreateStory = (props) => {
 		 * This form takes in all the details needed to create a new story
 		 */
 		return (
-			<form className="myForm" onSubmit={handleSubmit}>
-				<label>
-					Summary:
-					<input type="text" id="summary" required />
-				</label>
-				<label>
-					Description:
-					<textarea id="description" rows="3" required />
-				</label>
-				<label>
-					Type:
-					<select name="type" id="type" required defaultValue="value">
-						<option disabled value="value">
-							Select story type
-						</option>
-						<option value="enhancement">Enhancement</option>
-						<option value="bugfix">Bugfix</option>
-						<option value="development">Development</option>
-						<option value="qa">QA</option>
-					</select>
-				</label>
-				<label>
-					Complexity:
-					<select
-						name="complexity"
-						id="complexity"
-						required
-						defaultValue="value"
-					>
-						<option disabled value="value">
-							Select complexity
-						</option>
-						<option value="low">Low</option>
-						<option value="mid">Medium</option>
-						<option value="high">High</option>
-					</select>
-				</label>
-				<label>
-					Estimated time:
-					<input type="number" id="estimated" required />
-				</label>
-				<label>
-					Cost:
-					<span className="currencyinput">
-						$<input type="number" name="currency" id="cost" required />
-					</span>
-				</label>
-				<button type="submit">Add story</button>
-			</form>
+			<Form
+				{...layout}
+				layout="vertical"
+				name="basic"
+				initialValues={{ remember: true }}
+				onFinish={handleSubmit}
+			>
+				<Form.Item
+					label="Summary"
+					name="summary"
+					rules={[{ required: true, message: 'Please input story summary' }]}
+				>
+					<Input />
+				</Form.Item>
+
+				<Form.Item
+					label="Description"
+					name="description"
+					rules={[
+						{ required: true, message: 'Please input story description' },
+					]}
+				>
+					<TextArea />
+				</Form.Item>
+
+				<Form.Item
+					label="Type"
+					name="type"
+					rules={[{ required: true, message: 'Please select story type' }]}
+				>
+					<Select placeholder="Please select story type">
+						<Option value="enhancement">Enhancement</Option>
+						<Option value="bugfix">Bugfix</Option>
+						<Option value="development">Development</Option>
+						<Option value="qa">QA</Option>
+					</Select>
+				</Form.Item>
+
+				<Form.Item
+					label="Complexitiy"
+					name="complexity"
+					rules={[
+						{ required: true, message: 'Please select story complexity' },
+					]}
+				>
+					<Select placeholder="Please select story complexity">
+						<Option value="low">Low</Option>
+						<Option value="mid">Medium</Option>
+						<Option value="high">High</Option>
+					</Select>
+				</Form.Item>
+
+				<Form.Item
+					label="Estimated time"
+					name="estimated"
+					rules={[
+						{ required: true, message: 'Please input estimated time (hrs)' },
+					]}
+				>
+					<InputNumber min={1} max={100} />
+				</Form.Item>
+
+				<Form.Item
+					label="Cost"
+					name="cost"
+					rules={[{ required: true, message: 'Please input cost' }]}
+				>
+					<InputNumber
+						defaultValue={0}
+						formatter={(value) =>
+							`$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+						}
+						parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+					/>
+				</Form.Item>
+
+				<Form.Item {...tailLayout}>
+					<Button type="primary" htmlType="submit">
+						Create story
+					</Button>
+				</Form.Item>
+			</Form>
 		);
 	};
 
