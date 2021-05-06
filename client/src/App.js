@@ -9,7 +9,7 @@ import AdminRoute from './components/AdminRoute';
 import AuthRoute from './components/AuthRoute';
 import NoAccess from './components/NoAccess';
 import { AuthProvider } from './AuthContext';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Layout } from 'antd';
 
 const { Content } = Layout;

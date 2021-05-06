@@ -4,7 +4,7 @@ import { AuthContext } from '../AuthContext';
 import Logout from './Logout';
 import axios from 'axios';
 import { Card } from 'antd';
-import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 /**
  * This component is to display information regarding single story when admin clicks on it
@@ -30,7 +30,7 @@ const EachStory = (props) => {
 		}
 
 		fetchStory();
-	}, []);
+	}, [details, storyId]);
 
 	const updateStatus = async (status) => {
 		/**

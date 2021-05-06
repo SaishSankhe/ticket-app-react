@@ -144,7 +144,7 @@ const CreateStory = (props) => {
 	return (
 		<>
 			<Logout />
-			<div>{addStoryForm()}</div>;
+			<div>{addStoryForm()}</div>
 		</>
 	);
 };
