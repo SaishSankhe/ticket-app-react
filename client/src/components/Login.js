@@ -6,6 +6,16 @@ import { AuthContext } from '../AuthContext';
 const Login = (props) => {
 	const [details, setDetails] = useContext(AuthContext);
 
+	// const checkLoggedIn = () => {
+	// 	if (details) {
+	// 		if (details.role === 'user') {
+	// 			props.history.push('/create-story');
+	// 		} else {
+	// 			props.history.push('/story-review');
+	// 		}
+	// 	}
+	// };
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const data = e.target;
