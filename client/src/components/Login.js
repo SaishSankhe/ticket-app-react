@@ -3,6 +3,7 @@ import Navigation from './Navigation';
 import { withRouter } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../AuthContext';
+import { Form, Input, Button, Radio } from 'antd';
 
 /**
  * This component is for logging in the user or admin
@@ -12,15 +13,25 @@ import { AuthContext } from '../AuthContext';
 const Login = (props) => {
 	const [details, setDetails] = useContext(AuthContext);
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+	const layout = {
+		labelCol: { span: 5 },
+		wrapperCol: { span: 10 },
+	};
 
-		const data = e.target;
+	const tailLayout = {
+		wrapperCol: { offset: 5, span: 10 },
+	};
+
+	const handleSubmit = async (values) => {
+		// e.preventDefault();
+
+		const data = values;
+		console.log(values);
 
 		const loginObj = {
-			email: data.email.value,
-			password: data.pass.value,
-			isAdmin: data.role.value === 'admin' ? true : false,
+			email: values.email,
+			password: values.pass,
+			isAdmin: values.role === 'admin' ? true : false,
 		};
 
 		const response = await axios.post('/api/v1/signin', loginObj);
@@ -33,7 +44,7 @@ const Login = (props) => {
 			role: response.data.role.toLowerCase(),
 		});
 
-		redirectToPage(data.role.value);
+		redirectToPage(values.role);
 	};
 
 	const redirectToPage = (role) => {
@@ -51,28 +62,39 @@ const Login = (props) => {
 	return (
 		<div>
 			<Navigation />
-			<form className="myForm" method="POST" onSubmit={handleSubmit}>
-				<label>
-					Email
-					<input type="email" id="email" required></input>
-				</label>
-				<label>
-					Password
-					<input type="password" id="pass" required></input>
-				</label>
-				<label>
-					Role
-					<label>
-						<input type="radio" id="user" name="role" value="user" required />
-						User
-					</label>
-					<label>
-						<input type="radio" id="admin" name="role" value="admin" required />
-						Admin
-					</label>
-				</label>
-				<button type="submit">Login</button>
-			</form>
+			<Form
+				{...layout}
+				layout="vertical"
+				name="basic"
+				initialValues={{ remember: true }}
+				onFinish={handleSubmit}
+			>
+				<Form.Item
+					label="Email"
+					name="email"
+					rules={[{ required: true, message: 'Please input your email' }]}
+				>
+					<Input />
+				</Form.Item>
+				<Form.Item
+					label="Password"
+					name="password"
+					rules={[{ required: true, message: 'Please input your password' }]}
+				>
+					<Input.Password />
+				</Form.Item>
+				<Form.Item name="role" label="Role">
+					<Radio.Group>
+						<Radio value="user">User</Radio>
+						<Radio value="admin">Admin</Radio>
+					</Radio.Group>
+				</Form.Item>
+				<Form.Item {...tailLayout}>
+					<Button type="primary" htmlType="submit">
+						Login
+					</Button>
+				</Form.Item>
+			</Form>
 		</div>
 	);
 };
