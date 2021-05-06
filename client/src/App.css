@@ -4,6 +4,27 @@
 	padding: 20px;
 }
 
+.site-card-border-less-wrapper {
+	padding: 30px;
+}
+
+.accepted {
+	background-color: #38bc76 !important;
+}
+
+.rejected {
+	background-color: #ed5945 !important;
+}
+
+.ant-card {
+	background: #2b3d41;
+	color: #fcfcfc;
+}
+
+.ant-card-head {
+	color: #fcfcfc;
+}
+
 .currencyinput {
 	border: 1px inset #ccc;
 }

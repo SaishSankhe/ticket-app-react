@@ -3,6 +3,8 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../AuthContext';
 import Navigation from './Navigation';
 import axios from 'axios';
+import { Card } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 
 /**
  * This component is for admin to review the stories
@@ -33,22 +35,27 @@ const StoryList = (props) => {
 		<div>
 			<Navigation />
 			{stories.map((item, index) => (
-				<div key={index}>
-					<button
-						onClick={() => {
-							viewStory(item.id);
-						}}
+				<div className="site-card-border-less-wrapper" key={index}>
+					<Card
+						title={item.id + ' ' + item.summary}
+						bordered={false}
+						style={{ width: 400 }}
+						actions={[
+							<EditOutlined
+								key="edit"
+								onClick={() => {
+									viewStory(item.id);
+								}}
+							/>,
+						]}
+						className={item.status}
 					>
-						{item.id}
-					</button>
-					<p>{item.summary}</p>
-					<p>{item.description}</p>
-					<p>{item.type}</p>
-					<p>{item.complexity}</p>
-					<p>{item.estimatedHrs}</p>
-					<p>{item.cost}</p>
-					<p>{item.status}</p>
-					<hr />
+						<p>{item.description}</p>
+						<p>Type: {item.type}</p>
+						<p>Complexity: {item.complexity}</p>
+						<p>Estimated hours: {item.estimatedHrs}</p>
+						<p>Cost: {item.cost}</p>
+					</Card>
 				</div>
 			))}
 		</div>
