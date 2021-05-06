@@ -15,7 +15,9 @@ An application where users can add user stories and an admin can review the stor
 **Server:** Node, Express (Provided by Archimydes)
 
   
-## Addition
+## Assumptions and addition
+
+I have used Context API instead of Redux to store the authenticated user details. For keeping the details even after a page refresh, I have used localStorage to store the details.
 
 I have added a *logout* functionality to the application so that user/admin can logout. This clears the information stored in Context API and also the local storage. If not logged out, the local storage has the details stored and will always remember the past login.
 
