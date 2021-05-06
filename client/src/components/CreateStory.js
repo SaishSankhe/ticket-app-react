@@ -26,6 +26,8 @@ const CreateStory = (props) => {
 			description: data.description.value,
 			type: data.type.value,
 			complexity: data.complexity.value,
+			estimatedHrs: data.estimated.value,
+			cost: data.cost.value,
 		};
 
 		await axios.post('/api/v1/stories', storyObj, {
