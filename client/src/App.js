@@ -1,25 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from './components/Home';
+import Login from './components/Login';
+import CreateStory from './components/CreateStory';
+import StoryList from './components/StoryList';
+import StoryReview from './components/StoryReview';
+import EachStory from './components/EachStory';
+import AdminRoute from './components/AdminRoute';
+import AuthRoute from './components/AuthRoute';
+import { AuthProvider } from './AuthContext';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Router>
+			<AuthProvider>
+				<Switch>
+					<Route exact path="/" component={Home} />
+					<Route exact path="/login" component={Login} />
+					<AuthRoute exact path="/create-story" component={CreateStory} />
+					<AuthRoute exact path="/story-list" component={StoryList} />
+					<AdminRoute exact path="/story-review" component={StoryReview} />
+					<AdminRoute exact path="/story-review/:id" component={EachStory} />
+				</Switch>
+			</AuthProvider>
+		</Router>
+	);
 }
 
 export default App;

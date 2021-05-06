@@ -12,7 +12,6 @@ const getName = () => {
 router.post('/signin', (req, res) => {
 	const request = req.body;
 	const name = getName();
-	console.log(req.body);
 	const role = request.isAdmin ? roles.admin : roles.user;
 	const payload = {
 		id: random(4),
